@@ -1,0 +1,18 @@
+.ScrollBar{
+    border-color: white;
+    border-style: solid;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+::-webkit-scrollbar {
+    width: 20px;
+  }
+  
+::-webkit-scrollbar-track {
+    background: skyblue; 
+  }
+
+::-webkit-scrollbar-thumb {
+    background: white; 
+  }
