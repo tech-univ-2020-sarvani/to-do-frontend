@@ -1,0 +1,4 @@
+.AllTodo{
+    display: flex;
+    flex-direction: row;
+}
