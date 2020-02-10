@@ -1,0 +1,17 @@
+.card{
+    height: 4rem;
+    width: 18em;
+    background-color: white;
+    color: skyblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5%;
+    border-color: skyblue;
+    border-style: solid;
+    border-radius: 5%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
