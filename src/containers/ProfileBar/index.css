@@ -1,0 +1,13 @@
+.ProfileBar{
+    display: flex;
+    flex: 1;
+    border-style: solid;
+    border-color: skyblue;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.text{
+    color: skyblue;
+    font-family: Arial, Helvetica, sans-serif;
+}
