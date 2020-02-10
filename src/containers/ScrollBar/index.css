@@ -4,15 +4,6 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    overflow: scroll;
+    height: 200px;
 }
-::-webkit-scrollbar {
-    width: 20px;
-  }
-  
-::-webkit-scrollbar-track {
-    background: skyblue; 
-  }
-
-::-webkit-scrollbar-thumb {
-    background: white; 
-  }

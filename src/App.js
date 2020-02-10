@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import AllTodoPage from './containers/AllTodoPage';
+import CreateTodoPage from './containers/CreateTodoPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isCreated: false,
+      todos: ['first note'],
+    };
+  }
+
+  createNew = () => {
+    this.setState({
+      ...this.state,
+      isCreated: true,
+    });
+  }
+
+  updateTodos =() => {
+    const { todos } = this.state;
+    const todo = document.getElementById('textbox').value;
+    this.setState({
+      todos: [todo, ...todos],
+      isCreated: false,
+    });
+  }
+
+  onClickDone = (text) => {
+    const { todos } = this.state;
+    const index = todos.indexOf(text);
+    todos.splice(index, 1);
+    this.setState({
+      todos: [...todos],
+    });
+  }
+
+  render() {
+    const { isCreated, todos } = this.state;
+    return (
+      !isCreated
+        ? <AllTodoPage buttonClick={this.createNew} todos={todos} onClickDone={(text) => this.onClickDone(text)} />
+        : <CreateTodoPage buttonClick={this.updateTodos} />
+    );
+  }
 }
+
 
 export default App;

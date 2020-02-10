@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
-import AllTodoPage from './containers/AllTodoPage';
+import App from './App';
+// import AllTodoPage from './containers/AllTodoPage';
 // import CreateTodoPage from './containers/CreateTodoPage';
 import * as serviceWorker from './serviceWorker';
 
-// ReactDOM.render(<CreateTodoPage />, document.getElementById('root'));
-ReactDOM.render(<AllTodoPage />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<AllTodoPage />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -1,17 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TextBox from '../../components/TextBox';
 import Button from '../../components/Button';
 import './index.css';
 
-function TextBoxBar() {
+
+function TextBoxBar(props) {
+  const { buttonClick } = props;
   return (
-    <div className="TestBoxBar">
+    <div className="TextBoxBar">
       <h2>CREATE TO-DO</h2>
       <TextBox />
       <br />
-      <Button buttonName="SUBMIT" />
+      {/* use padding */}
+      <Button buttonName="SUBMIT" buttonClick={buttonClick} />
     </div>
   );
 }
 
+TextBoxBar.propTypes = {
+  buttonClick: PropTypes.func.isRequired,
+};
 export default TextBoxBar;
