@@ -8,8 +8,8 @@ function ScrollBar(props) {
 
   const todoList = todos.map((value) => (
     <Card
-      text={value}
-      onClickDone={(text) => onClickDone(text)}
+      todos={value}
+      onClickDone={(id) => onClickDone(id)}
     />
   ));
   return (

@@ -1,5 +1,7 @@
+/* eslint-disable react/sort-comp */
 import React from 'react';
 import './App.css';
+import axios from 'axios';
 import AllTodoPage from './containers/AllTodoPage';
 import CreateTodoPage from './containers/CreateTodoPage';
 
@@ -8,7 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       isCreated: false,
-      todos: ['first note'],
+      todos: [],
     };
   }
 
@@ -19,22 +21,43 @@ class App extends React.Component {
     });
   }
 
-  updateTodos =() => {
+  getTodos = async () => {
+    const todoData = await axios.get('http://localhost:8080/notes');
+    const notes = todoData.data;
+    console.log(notes);
+    this.setState({
+      todos: [...notes],
+    });
+  }
+
+  componentDidMount() {
+    console.log('ComponentDidMount');
+    this.getTodos();
+  }
+
+
+  updateTodos =async () => {
     const { todos } = this.state;
     const todo = document.getElementById('textbox').value;
+    const newTodo = {
+      title: todo,
+      description: todo,
+    };
+    console.log(newTodo);
+    const note = await axios.post('http://localhost:8080/notes', newTodo);
+    const noteData = note.data;
     this.setState({
-      todos: [todo, ...todos],
+      todos: [noteData, ...todos],
       isCreated: false,
     });
   }
 
-  onClickDone = (text) => {
-    const { todos } = this.state;
-    const index = todos.indexOf(text);
-    todos.splice(index, 1);
-    this.setState({
-      todos: [...todos],
+  onClickDone = async (id) => {
+    await axios({
+      method: 'DELETE',
+      url: `http://localhost:8080/notes/${id}`,
     });
+    this.getTodos();
   }
 
   render() {
