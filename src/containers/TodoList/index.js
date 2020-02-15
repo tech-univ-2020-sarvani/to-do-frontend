@@ -10,7 +10,7 @@ function TodoList(props) {
     <div className="list">
       <h2 className="text">ALL TO-DOS</h2>
       <ScrollBar todos={todos} onClickDone={(id) => onClickDone(id)} />
-      <Button buttonName="CREATE NEW" link="/new" />
+      <Button path="/new">CREATE NEW</Button>
     </div>
   );
 }

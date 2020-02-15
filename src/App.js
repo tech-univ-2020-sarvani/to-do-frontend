@@ -44,7 +44,7 @@ class App extends React.Component {
     const note = await axios.post('http://localhost:8080/notes', newTodo);
     const noteData = note.data;
     this.setState({
-      todos: [noteData, ...todos],
+      todos: [...todos, noteData],
     });
   }
 
