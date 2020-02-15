@@ -5,8 +5,8 @@ import './index.css';
 
 function ScrollBar(props) {
   const { todos, onClickDone } = props;
-
-  const todoList = todos.reverse().map((value) => (
+  console.log(todos);
+  const todoList = todos.map((value) => (
     <Card
       todos={value}
       onClickDone={(id) => onClickDone(id)}

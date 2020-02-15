@@ -9,69 +9,40 @@ import {
 } from 'react-router-dom';
 import AllTodoPage from './containers/AllTodoPage';
 import CreateTodoPage from './containers/CreateTodoPage';
+import useInput from './hooks/useInput';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      todos: [],
-    };
-  }
-
-  getTodos = async () => {
-    const todoData = await axios.get('http://localhost:8080/notes');
-    const notes = todoData.data;
-    console.log(notes);
-    this.setState({
-      todos: [...notes],
-    });
-  }
-
-  componentDidMount() {
-    console.log('ComponentDidMount');
-    this.getTodos();
-  }
-
-
-  updateTodos =async () => {
-    const { todos } = this.state;
-    const todo = document.getElementById('textbox').value;
+const App = () => {
+  const [todo, setTodo] = useInput([]);
+  console.log(todo);
+  const updateTodos = async () => {
+    const todoNew = document.getElementById('textbox').value;
     const newTodo = {
-      title: todo,
-      description: todo,
+      title: todoNew,
+      description: todoNew,
     };
-    console.log(newTodo);
     const note = await axios.post('http://localhost:8080/notes', newTodo);
     const noteData = note.data;
-    this.setState({
-      todos: [...todos, noteData],
-    });
-  }
+    setTodo([...todo, noteData]);
+  };
 
-  onClickDone = async (id) => {
+  const onClickDone = async (id) => {
     await axios({
       method: 'DELETE',
       url: `http://localhost:8080/notes/${id}`,
     });
-    this.getTodos();
-  }
-
-  render() {
-    const { todos } = this.state;
-    return (
-      <Router>
-        <Switch>
-          <Route path="/new">
-            <CreateTodoPage buttonClick={this.updateTodos} />
-          </Route>
-          <Route path="/">
-            <AllTodoPage todos={todos} onClickDone={(text) => this.onClickDone(text)} />
-          </Route>
-        </Switch>
-      </Router>
-    );
-  }
-}
-
+  };
+  return (
+    <Router>
+      <Switch>
+        <Route path="/new">
+          <CreateTodoPage buttonClick={updateTodos} />
+        </Route>
+        <Route path="/">
+          <AllTodoPage todos={todo} onClickDone={(text) => onClickDone(text)} />
+        </Route>
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;
