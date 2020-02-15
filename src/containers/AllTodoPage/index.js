@@ -5,16 +5,15 @@ import TodoList from '../TodoList';
 import './index.css';
 
 function AllTodoPage(props) {
-  const { buttonClick, todos, onClickDone } = props;
+  const { todos, onClickDone } = props;
   return (
     <div className="AllTodo">
       <ProfileBar />
-      <TodoList buttonClick={buttonClick} todos={todos} onClickDone={(text) => onClickDone(text)} />
+      <TodoList todos={todos} onClickDone={(text) => onClickDone(text)} />
     </div>
   );
 }
 AllTodoPage.propTypes = {
-  buttonClick: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onClickDone: PropTypes.func.isRequired,
 };

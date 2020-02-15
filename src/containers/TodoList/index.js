@@ -5,18 +5,17 @@ import Button from '../../components/Button';
 import './index.css';
 
 function TodoList(props) {
-  const { buttonClick, todos, onClickDone } = props;
+  const { todos, onClickDone } = props;
   return (
     <div className="list">
       <h2 className="text">ALL TO-DOS</h2>
       <ScrollBar todos={todos} onClickDone={(id) => onClickDone(id)} />
-      <Button buttonName="CREATE NEW" buttonClick={buttonClick} />
+      <Button buttonName="CREATE NEW" link="/new" />
     </div>
   );
 }
 
 TodoList.propTypes = {
-  buttonClick: PropTypes.func.isRequired,
   todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onClickDone: PropTypes.func.isRequired,
 };

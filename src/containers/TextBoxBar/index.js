@@ -13,7 +13,7 @@ function TextBoxBar(props) {
       <TextBox />
       <br />
       {/* use padding */}
-      <Button buttonName="SUBMIT" buttonClick={buttonClick} />
+      <Button buttonName="SUBMIT" buttonClick={buttonClick} link="/" />
     </div>
   );
 }

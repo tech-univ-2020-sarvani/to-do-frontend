@@ -6,9 +6,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams,
 } from 'react-router-dom';
 import AllTodoPage from './containers/AllTodoPage';
 import CreateTodoPage from './containers/CreateTodoPage';
@@ -17,16 +14,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCreated: false,
       todos: [],
     };
-  }
-
-  createNew = () => {
-    this.setState({
-      ...this.state,
-      isCreated: true,
-    });
   }
 
   getTodos = async () => {
@@ -56,7 +45,6 @@ class App extends React.Component {
     const noteData = note.data;
     this.setState({
       todos: [noteData, ...todos],
-      isCreated: false,
     });
   }
 
@@ -69,7 +57,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isCreated, todos } = this.state;
+    const { todos } = this.state;
     return (
       <Router>
         <Switch>
@@ -77,7 +65,7 @@ class App extends React.Component {
             <CreateTodoPage buttonClick={this.updateTodos} />
           </Route>
           <Route path="/">
-            <AllTodoPage buttonClick={this.createNew} todos={todos} onClickDone={(text) => this.onClickDone(text)} />
+            <AllTodoPage todos={todos} onClickDone={(text) => this.onClickDone(text)} />
           </Route>
         </Switch>
       </Router>
