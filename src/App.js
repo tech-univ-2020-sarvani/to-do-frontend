@@ -2,6 +2,14 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams,
+} from 'react-router-dom';
 import AllTodoPage from './containers/AllTodoPage';
 import CreateTodoPage from './containers/CreateTodoPage';
 
@@ -63,9 +71,16 @@ class App extends React.Component {
   render() {
     const { isCreated, todos } = this.state;
     return (
-      !isCreated
-        ? <AllTodoPage buttonClick={this.createNew} todos={todos} onClickDone={(text) => this.onClickDone(text)} />
-        : <CreateTodoPage buttonClick={this.updateTodos} />
+      <Router>
+        <Switch>
+          <Route path="/new">
+            <CreateTodoPage buttonClick={this.updateTodos} />
+          </Route>
+          <Route path="/">
+            <AllTodoPage buttonClick={this.createNew} todos={todos} onClickDone={(text) => this.onClickDone(text)} />
+          </Route>
+        </Switch>
+      </Router>
     );
   }
 }
