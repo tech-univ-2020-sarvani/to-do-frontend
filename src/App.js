@@ -6,14 +6,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 import AllTodoPage from './containers/AllTodoPage';
 import CreateTodoPage from './containers/CreateTodoPage';
 import useInput from './hooks/useInput';
+import ViewNote from './containers/ViewNote';
 
 const App = () => {
   const [todo, setTodo] = useInput([]);
-  console.log(todo);
+
   const updateTodos = async () => {
     const todoNew = document.getElementById('textbox').value;
     const newTodo = {
@@ -31,13 +33,17 @@ const App = () => {
       url: `http://localhost:8080/notes/${id}`,
     });
   };
+
   return (
     <Router>
       <Switch>
-        <Route path="/new">
+        <Route exact path="/new">
           <CreateTodoPage buttonClick={updateTodos} />
         </Route>
-        <Route path="/">
+        <Route exact path="/view">
+          <ViewNote todos={todo} />
+        </Route>
+        <Route path="*">
           <AllTodoPage todos={todo} onClickDone={(text) => onClickDone(text)} />
         </Route>
       </Switch>
