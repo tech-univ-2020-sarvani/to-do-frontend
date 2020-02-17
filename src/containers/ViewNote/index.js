@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory, Redirect } from 'react-router-dom';
 // import ProfileBar from '../ProfileBar';
 import './index.css';
 
@@ -9,13 +9,21 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 function CreateTodo(props) {
-  const { todos } = props;
+  const { todos, listLoadComplete } = props;
   console.log(todos);
-  // const history = useHistory();
+  const history = useHistory();
   const query = useQuery();
   const noteId = query.get('noteID');
   const todoView = todos.filter((todo) => todo.id === noteId);
   console.log(todoView);
+  if (listLoadComplete === null) {
+    return (
+      <div>
+        Loading...
+      </div>
+    );
+  }
+
   return (
     todoView.length !== 0
       ? (
@@ -26,13 +34,14 @@ function CreateTodo(props) {
           <br />
           {todoView[0].description}
           <br />
-          {/* <button type="button" onClick={history.push('/new')}>LIST</button> */}
+          <button type="button" onClick={history.push('/new')}>LIST</button>
         </div>
       )
-      : <div />
+      : <Redirect to="/" />
   );
 }
 CreateTodo.propTypes = {
   todos: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  listLoadComplete: PropTypes.bool.isRequired,
 };
 export default CreateTodo;

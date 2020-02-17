@@ -6,7 +6,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
 } from 'react-router-dom';
 import AllTodoPage from './containers/AllTodoPage';
 import CreateTodoPage from './containers/CreateTodoPage';
@@ -14,8 +13,7 @@ import useInput from './hooks/useInput';
 import ViewNote from './containers/ViewNote';
 
 const App = () => {
-  const [todo, setTodo] = useInput([]);
-
+  const [todo, setTodo, listLoadComplete] = useInput([]);
   const updateTodos = async () => {
     const todoNew = document.getElementById('textbox').value;
     const newTodo = {
@@ -32,6 +30,8 @@ const App = () => {
       method: 'DELETE',
       url: `http://localhost:8080/notes/${id}`,
     });
+    const res = todo.filter((note) => note.id !== id);
+    setTodo([...res]);
   };
 
   return (
@@ -41,7 +41,7 @@ const App = () => {
           <CreateTodoPage buttonClick={updateTodos} />
         </Route>
         <Route exact path="/view">
-          <ViewNote todos={todo} />
+          <ViewNote todos={todo} listLoadComplete={listLoadComplete} />
         </Route>
         <Route path="*">
           <AllTodoPage todos={todo} onClickDone={(text) => onClickDone(text)} />
